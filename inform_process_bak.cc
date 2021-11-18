@@ -1,4 +1,4 @@
-#include "inform_process.h"
+#include "inform_process_bak.h"
 
 namespace bus
 {
@@ -467,6 +467,7 @@ namespace bus
         return 0;
     }
 
+    // 增量拉取friend和taff
     int bus_inform_process::IncrProcessFriendedAndStaff(row_t *row)
     {
         if (row->size() != 3)
@@ -605,6 +606,7 @@ namespace bus
         return 0;
     }
 
+    // 增量拉取onliceCs
     int bus_inform_process::IncrProcessOnlineCs(row_t *row)
     {
         if (row->size() != 3)
@@ -676,6 +678,7 @@ namespace bus
         return 0;
     }
 
+    // 增量拉取CsLeader
     int bus_inform_process::IncrProcessCsLeader(row_t *row)
     {
         if (row->size() != 2)
