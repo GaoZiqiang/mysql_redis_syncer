@@ -10,6 +10,7 @@ namespace bus
 {
     class bus_packet_t;
 
+    // 数据库管理接口--非业务接口
     class bus_interface
     {
         public:
@@ -27,6 +28,7 @@ namespace bus
              */
             int Init(const char *szIp, int nPort, const char *szUserName, const char *szPasswd, int nServerid, bool bPasswdNeedDecode, bus_user_process *pUserProcess);
 
+            // 使用bus_config_t接口
             int Init(bus_config_t *pConfig, bus_user_process *pUserProcess);
 
             /*

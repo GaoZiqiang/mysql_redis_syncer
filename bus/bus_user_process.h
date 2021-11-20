@@ -6,7 +6,7 @@
 namespace bus
 {
     /*
-     * @todo 业务相关操作接口
+     * @todo 业务相关操作接口--业务操作接口
      */
     class bus_user_process
     {

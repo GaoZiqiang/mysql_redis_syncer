@@ -45,6 +45,7 @@ namespace bus
     int bus_interface::Init(bus_config_t *pConfig, bus_user_process *pUserProcess)
     {
         int nRet = 0;
+        // 调用下面那个init()
         nRet = Init(pConfig->_mysql_ip, pConfig->_mysql_port, pConfig->_mysql_username, pConfig->_mysql_userpasswd, pConfig->_mysql_serverid, pConfig->_password_need_decode, pUserProcess);
         return nRet;
     }
