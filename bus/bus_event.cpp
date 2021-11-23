@@ -608,8 +608,6 @@ namespace bus {
             } else if (ret == 1) {
                 g_logger.debug("recv stop signal");
                 return 1;
-            } else {
-                printf("parse_event成功!\n");
             }
         } else if (pack_type == 0xff) {
             ret = error_pack.parse(_body, pos, _bodylen);
@@ -715,7 +713,7 @@ namespace bus {
     }
 
     int32_t bus_event_t::parse_event(char* buf, uint32_t& pos, uint32_t packlen, bus_user_process* pUserProcess) {
-        assert(packlen > =19);
+        assert(packlen >= 19);
         this->pack_len = packlen;// event_sz?
         // 解析event head
         event_head.parse_event_head(buf, pos);
@@ -735,20 +733,20 @@ namespace bus {
 #endif
         }
         // 解析事件类型
-        printf("--- 新bus_event.cpp 解析事件类型 ---\n");
-        g_logger.notice("--- 新bus_event.cpp 解析事件类型 ---");s
+        printf("------ 解析事件类型 ------\n");
+        g_logger.notice("--- 解析事件类型 ---");
         switch(event_head.event_type) {
             case 0x00:
                 g_logger.debug("unknown event");
                 return -1;
                 break;
-            case:0x04:
+            case 0x04:
 #if 1
     if (m_bIsChecksumEnable == true && format_event.get_alg() != BINLOG_CHECKSUM_ALG_OFF && format_event.get_alg() != BINLOG_CHECKSUM_ALG_UNDEF)
         this->pack_len -= BINLOG_CHECKSUM_LEN;
 #endif
                 printf("--- 事件类型:rotate event!\n");
-                g_logger.dubug("rotate event");
+                g_logger.debug("rotate event");
                 if (rotate_event.parse_rotate_event_body(buf, pos, *this) != 0) {
                     g_logger.error("parse rotate event error");
                     return -1;
@@ -938,7 +936,7 @@ namespace bus {
             default:
                 pos = packlen;
         }
-        printf("--- 事件类型解析完成 ---\n");
+        printf("------ 事件类型解析完成 ------\n");
         return 0;
     }// bus_event_t::parse_event
 
@@ -1075,7 +1073,7 @@ namespace bus {
         }
 
         bus_table_map_t* pMapEvent = cur_event.map_map_event[_table_id];
-        if (pMapEvent == ptr) {
+        if (pMapEvent == nullptr) {
             g_logger.error("pMapEvent is nullptr");
             return -1;
         }
@@ -1113,7 +1111,7 @@ namespace bus {
         uint32_t null_bitmap1_size = (present_ct1 + 7) >> 3;
 
         uint32_t null_bitmap2_size = 0;
-        if (if _cmd = 0x18 || _cmd = 0x1F) {// update rows event
+        if (_cmd == 0x18 || _cmd == 0x1F) {// update rows event
             _present_bitmap2.assign(buf + pos, _present_bitmap_len);
             pos += _present_bitmap_len;
             uint32_t present_ct2 = _present_bitmap2.get_bitset_count(_column_count);
@@ -1355,7 +1353,6 @@ namespace bus {
                     column_t *col = curschema->get_column_byseq(i);
 
                     if (!parse_column_value(buf + pos, type, meta, pos, temp_row, false, convert, col)) {
-                        printf("parse %d column value fail\n", i);
                         g_logger.error("parse %d column value fail", i);
                         delete temp_row;
                         temp_row = NULL;
@@ -1371,7 +1368,6 @@ namespace bus {
 
         /* 将解析后的数据按照顺序放入目标行 */
         std::vector<column_t*>& cols = curschema->get_columns();
-        printf("char *ptr之前\n");
         char *ptr = NULL;
         for(std::vector<column_t*>::iterator it = cols.begin(); it != cols.end(); ++it)
         {
@@ -1379,7 +1375,6 @@ namespace bus {
             int32_t curseq = curcolumn->get_column_seq();
             if (!temp_row->get_value(curseq, &ptr))// 问题出在这里
             {
-                printf("get value in sequence %d fail\n", curseq);
                 g_logger.error("get value in sequence %d fail", curseq);
                 delete temp_row;
                 temp_row = NULL;

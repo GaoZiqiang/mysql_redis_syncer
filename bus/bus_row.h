@@ -43,25 +43,15 @@ class row_t
             //_cmd = NULL;
         }
         row_t(const row_t& other);
+        // 存放行数据
         void push_back(const char *p, bool is_old);
         void push_back(const char *p, int sz, bool is_old);
 
         bool get_value(uint32_t index, char **val_ptr)
         {
             uint32_t sz = _cols.size();
-            printf("_cols.size: %d,index: %d\n",_cols.size(), index);
             if (index >= sz) {
-//                std::string info;
-//                row_t::print(info);
-//                this->print(info);
-//                printf("get value fail, index=%u,size=%u\n",
-//                       index, sz);
-//                g_logger.error("get value fail, index=%u,size=%u, data=%s",
-//                        index, sz, info.c_str());
-                printf("get value 失败!\n");
                 return false;
-            } else {
-                printf("get value 成功!\n");
             }
             *val_ptr = _cols[index];
             return true;
@@ -252,7 +242,7 @@ class row_t
         /*  表名 */
         char _dbname[64];
         char _tablename[64];
-        /* 行的动作 */
+        /* 行的动作/操作--insert/delete/update */
         action_t _action;
 };
 }//namespace bus

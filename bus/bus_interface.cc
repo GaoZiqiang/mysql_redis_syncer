@@ -184,9 +184,9 @@ namespace bus
         }
 
         g_logger.notice("reqbinlog, file:%s, logpos:%lu", m_szBinlogFileName, m_uBinlogPos);
-        printf("reqbinlog, file:%s, logpos:%lu\n", m_szBinlogFileName, m_uBinlogPos);
-        printf("Binlog申请成功!\n");
-        printf("拉取完Binlog后的文件描述符fd: %d\n",fd);
+//        printf("reqbinlog, file:%s, logpos:%lu\n", m_szBinlogFileName, m_uBinlogPos);
+//        printf("Binlog申请成功!\n");
+//        printf("拉取完Binlog后的文件描述符fd: %d\n",fd);
         return 0;
     }
 
@@ -218,20 +218,20 @@ namespace bus
 
     int bus_interface::ReadAndParse(bus_user_process *pUserProcess)
     {
-        printf("开始bus_interface::ReadAndParse()\n");
+//        printf("开始bus_interface::ReadAndParse()\n");
         int nRet = 0;
         int fd = m_mysql.net.fd;// 文件描述符--来自哪？
-        printf("fd为: %d\n",fd);
+//        printf("fd为: %d\n",fd);
         // 读取Binlog
         nRet = m_pPacket->read_packet(fd);
         if (nRet != 0) 
         {
             /* read error, or eof */
-            printf("读取Binlog失败!read_packet()返回值为: %d\n", nRet);
+//            printf("读取Binlog失败!read_packet()返回值为: %d\n", nRet);
             g_logger.error("read error");
             return nRet;
         } else {
-            printf("binlog读取m_pPacket->read_packet成功!\n");
+//            printf("binlog读取m_pPacket->read_packet成功!\n");
         }
 
         // 解析Binlog
@@ -239,7 +239,7 @@ namespace bus
         if (nRet == -1) 
         {
             /* parse packet fail */
-            printf("解析Binlog失败!\n");
+//            printf("解析Binlog失败!\n");
             g_logger.error("parse error");
             return nRet;
         } 
@@ -255,9 +255,9 @@ namespace bus
             g_logger.debug("read eof");
             return nRet;
         } else {
-            printf("binlog解析m_pPacket->parse_packet成功!\n");
+//            printf("binlog解析m_pPacket->parse_packet成功!\n");
         }
-        printf("结束bus_interface::ReadAndParse()!\n");
+//        printf("结束bus_interface::ReadAndParse()!\n");
 
         return 0;
     }
