@@ -11,7 +11,7 @@ INC_DIR = -I tinyxml
 LOG_DIR = log
 
 APP_DIR = .
-APP_NAME = inform_mysqlrep
+APP_NAME = main
 APP_OBJ_DIR = obj
 
 
@@ -53,11 +53,10 @@ ${APP_OBJ_DIR}/%.o:%.cc
 	${CCC} -c ${CFLAGS}  ${INC_DIR} -o $@ $<	
 
 ${APP_OBJ_DIR}/%.o:bus/%.cc
-	${CCC} -c ${CFLAGS}  ${INC_DIR} -o $@ $<	
+	${CCC} -c ${CFLAGS}  ${INC_DIR} -o $@ $<
 
-
-
-
+${APP_OBJ_DIR}/%.o:bus/%.cpp
+	${CCC} -c ${CFLAGS}  ${INC_DIR} -o $@ $<
 
 clean:
 	rm -rf ${APP_OBJ_DIR}
