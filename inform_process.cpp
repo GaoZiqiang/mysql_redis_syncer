@@ -115,7 +115,6 @@ namespace bus {
     // 增量拉取
     int bus_inform_process::IncrProcess(row_t* row) {
         g_logger.notice("%s", __FUNCTION__);
-        printf("Now in %s\n", __FUNCTION__);
         const char* db_name = row->get_db_name();
         const char* table_name = row->get_table();
 

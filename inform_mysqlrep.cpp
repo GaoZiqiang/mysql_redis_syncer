@@ -10,7 +10,7 @@
 
 #include "bus/bus_interface.h"
 #include "bus/bus_user_process.h"
-#include "inform_process_bak.h"
+#include "inform_process.h"
 
 extern bus::bus_log_t g_logger;
 extern bus::bus_config_t g_config;
