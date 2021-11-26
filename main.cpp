@@ -165,7 +165,7 @@ int main(int argc, char** argv) {
 
     while (true) {
         uNowTime = time(0);
-        // 一周全量拉取一次
+        // 一周全量拉取一次--这里应该用定时器!!!
         if (uNowTime - uLastFullPullTime >= uFullPullInternal) {
             printf("进行全量拉取\n");
             pUserProcess->FullPull();// 全量拉取
@@ -188,7 +188,7 @@ int main(int argc, char** argv) {
             if (nRet != 0) {
                 // 解析mysql binlog失败少于三次--重新解析一次
                 if (uReconnectCount++ < 3) {// reconnect少于三次--
-                    printf("pInterface->ReadAndParse失败少于3次\n");
+                    printf("pInterface->ReadAndParse失败少于3次, uReconnectCount = %d\n", uReconnectCount);
                     // 重新解析一次mysql binlog，因此需要回到上一次解析到的mysql binlog位置--从redis数据库中查找
                     pInterface->UpdateToNextPos();// 更新pUserProcess的szBinlogFileName和uBinlogPos这两个参数
                 } else {// reconnect多于三次--重新同步mysql binlog pos和redis中存储的binlog pos
