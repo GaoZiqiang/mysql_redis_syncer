@@ -541,16 +541,14 @@ namespace bus {
 
     int bus_packet_t::read_packet(int fd)
     {
-        int cur_payload_sz = 0xffffff;// cur_payload_sz太大？--16777215
+        int cur_payload_sz = 0xffffff;
         _bodylen = 0;
         int bytes_ct, ret;
         while (cur_payload_sz == 0xffffff)
         {
-            /* 读取packet head--只读取4个字节？？？ */
             char buf[4];// 读到buf中
             bytes_ct = 0;
             while (bytes_ct != 4) {
-                // 会陷入阻塞
                 ret = read(fd, buf + bytes_ct, 4 - bytes_ct);
                 if (ret == 0) {
                     g_logger.notice("read socket eof");
@@ -573,7 +571,6 @@ namespace bus {
             while(bytes_ct != cur_payload_sz) {
                 ret = read(fd, _body + _bodylen + bytes_ct, cur_payload_sz - bytes_ct);
                 if (ret == 0) {
-                    // 问题出在这里！！！
                     // 读取长度大于文件实际长度
                     g_logger.notice("read socket eof");
                     return -1;
@@ -592,7 +589,6 @@ namespace bus {
 
     int32_t bus_packet_t::parse_packet(bus_user_process *pUserProcess)
     {
-//        printf("进入bus_packet_t::parse_packet函数中!\n");
         uint32_t pos = 0;
         uint8_t pack_type = _body[0];
         pos += 1;
@@ -600,7 +596,6 @@ namespace bus {
         int ret;
         if (pack_type == 0x00)
         {
-//            printf("开始parse_event之前!\n");
             ret = event_pack.parse_event(_body, pos, _bodylen, pUserProcess);
             if (ret == -1) {
                 g_logger.error("parse event fail");

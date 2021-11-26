@@ -19,7 +19,7 @@ all: ${APP_DIR} ${APP_OBJ_DIR} ${APP_DIR}/${APP_NAME}
 
 
 #for sbin
-APP_OBJ = ${APP_OBJ_DIR}/inform_mysqlrep.o \
+APP_OBJ = ${APP_OBJ_DIR}/main.o \
     ${APP_OBJ_DIR}/bus_charset.o \
 	${APP_OBJ_DIR}/bus_config.o \
 	${APP_OBJ_DIR}/bus_event.o \
