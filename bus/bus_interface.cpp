@@ -165,7 +165,7 @@ namespace bus {
             // 设置mysql binlog checksum
             // mysql5.6.5之前的版本binlog_checksum默认值是none,5.6.5以后的版本中binlog_checksum默认值是crc32
             mysql_query(&m_mysql, "SET @master_binlog_checksum='NONE'");
-//            mysql_query(&m_mysql, "SET GLOBAL BINLOG_CHECKSUM = 'NONE'");// mysql5.6.26
+//            mysql_query(&m_mysql, "SET GLOBAL BINLOG_CHECKSUM = 'CRC32'");// mysql5.6.26
         }
 
         // 获取并修改mysql socket fd文件描述符的状态标志并修改
