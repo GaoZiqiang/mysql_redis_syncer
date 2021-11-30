@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
     bool bDaemon = false;// 不记录进程
     uint32_t uLastFullPullTime = time(0);// 上一次全量同步时间
     uint32_t uNowTime = 0;
-    uint32_t uFullPullInternal = 20;// 一周全量同步一次，保证数据同步
+    uint32_t uFullPullInternal = 86400;// 一天全量同步一次，保证数据同步
 
     // 检查文件是否存在 mode == 0
     if (access("inform_mysqlrep.pid", 0) != -1) {

@@ -153,6 +153,7 @@ namespace bus {
             printf("hmget informhubsvr_binlog_pos_hash filename pos失败\n");
             return -1;
         }
+
         redisReply* pReply = m_pRedis->GetReply();// 获取redis查询结果
         if (REDIS_REPLY_NIL == pReply->element[0]->type || REDIS_REPLY_NIL == pReply->element[1]->type) {
             g_logger.error("fail to get logpos from redis, not exists key");
